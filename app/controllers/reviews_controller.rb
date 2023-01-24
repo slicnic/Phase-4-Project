@@ -14,8 +14,6 @@ class ReviewsController < ApplicationController
     end
 
     def update
-       #Review error handling and create a rescue for RecordNotFound
-        #Add the ! to update so it raises an exception
         review = Review.find(params[:id])
         review.update!(production_params)
         render json: review, status: :accepted

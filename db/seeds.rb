@@ -5,24 +5,34 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
- puts "Seeding!"
+ 
 require 'faker'
+puts "Destroying"
+Review.destroy_all
 Movie.destroy_all
-# 20.times do
-#     user = Faker::User.unique
-# end
+User.destroy_all
 
+puts "Seeding!"
+
+puts "Creating User"
 5.times do
     User.create(name: Faker::Name.name, email: Faker::Internet.email, password_digest: "password")
 end
 
+puts "Seeding Movies"
 20.times do
     # title = Faker::Movie.unique.title
-    Movie.create(title: Faker::Movie.unique.title, date_released: Faker::Date.forward(days: 1),image_url:Faker::Placeholdit.image, user_id: User.all.sample.id)
+    Movie.create(title: Faker::Movie.unique.title, date_released: Faker::Date.forward(days: 1),image_url:Faker::LoremFlickr.image, user_id: User.all.sample.id)
 end
+puts "Seeding Reviews"
+
+# puts User.all.sample.id
+# puts Movie.all.sample.id
 
 25.times do
     Review.create(rating: Faker::Number.within(range:1..10), content: Faker::Coffee.notes, user_id: User.all.sample.id, movie_id: Movie.all.sample.id)
 end
+
+puts Movie.first.image_url
 
 puts "Done seeding!"
