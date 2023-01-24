@@ -1,2 +1,38 @@
 class ReviewsController < ApplicationController
+    def index
+        render json: Review.all, status: :ok
+    end
+
+    def show
+        review = Review.find(params[:id])
+        render json: review, include: :user, status: :ok
+    end
+
+    def create
+        review = Review.create!(production_params)
+        render json: review, status: :created
+    end
+
+    def update
+       #Review error handling and create a rescue for RecordNotFound
+        #Add the ! to update so it raises an exception
+        review = Review.find(params[:id])
+        review.update!(production_params)
+        render json: review, status: :accepted
+    end
+
+    def destroy
+        review = Review.find(params[:id])
+        review.destroy
+        head :no_content
+    end
+
+    private
+
+    #Review strong params and why they are useful with updates
+    def production_params
+        params.permit(:rating, :content)
+    end
+
+end
 end
