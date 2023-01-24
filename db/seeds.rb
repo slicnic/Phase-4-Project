@@ -12,16 +12,16 @@ Movie.destroy_all
 #     user = Faker::User.unique
 # end
 
-5.times do 
+5.times do
     User.create(name: Faker::Name.name, email: Faker::Internet.email, password_digest: "password")
 end
 
-20.times do 
+20.times do
     # title = Faker::Movie.unique.title
-    Movie.create(title: Faker::Movie.unique.title, date_released: Faker::Date.forward(days: 1), user_id: User.all.sample.id)
+    Movie.create(title: Faker::Movie.unique.title, date_released: Faker::Date.forward(days: 1),image_url:Faker::Placeholdit.image, user_id: User.all.sample.id)
 end
 
-25.times do 
+25.times do
     Review.create(rating: Faker::Number.within(range:1..10), content: Faker::Coffee.notes, user_id: User.all.sample.id, movie_id: Movie.all.sample.id)
 end
 
