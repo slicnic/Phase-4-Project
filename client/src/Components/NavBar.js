@@ -15,14 +15,14 @@ function NavBar({ user, setUser }) {
     return (
         <Wrapper>
             <Logo>
-                <Link to="/">Reciplease</Link>
+                <Link to="/">Sensical Nonsense</Link>
             </Logo>
             <Nav>
                 <Button as={Link} to="/new">
-                    New Recipe
+                    New Movie
                 </Button>
                 <Button variant="outline" onClick={handleLogoutClick}>
-                    Logout
+                    Log-TheFuck-out
                 </Button>
             </Nav>
         </Wrapper>

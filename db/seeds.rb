@@ -16,7 +16,7 @@ puts "Seeding!"
 
 puts "Creating User"
 5.times do
-    User.create(name: Faker::Name.name, email: Faker::Internet.email, password_digest: "password")
+    User.create(username: Faker::Name.name, bio: Faker::Internet.email, image_url: "sdfg", password_digest: "password")
 end
 
 puts "Seeding Movies"
