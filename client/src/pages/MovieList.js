@@ -10,7 +10,10 @@ function MovieList() {
     useEffect(() => {
         fetch("/movies")
             .then((r) => r.json())
-            .then(setMovies);
+            .then(data =>{
+                console.log(data)
+                setMovies(data)
+            });
     }, []);
 
     return (
@@ -23,7 +26,7 @@ function MovieList() {
                             <p>
                                 {/* <em>Time to Complete: {recipe.minutes_to_complete} minutes</em>
                                 &nbsp;·&nbsp; */}
-                                <cite>By {movie.user.name}</cite>
+                                <cite>By {movie.user.username}</cite>
                             </p>
                             {/* <ReactMarkdown>{movie.user.name}</ReactMarkdown> */}
                         </Box>
