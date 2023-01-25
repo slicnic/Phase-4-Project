@@ -1,13 +1,15 @@
 class UsersController < ApplicationController
-      def show
-        user = User.find(params[:id])
-        render json: user, status: :ok
-    end
-    
-     def create
-        user = Users.create!(user_params)
-        render json: review, status: :created
-    end
+  skip_before_action :authorize, only: :create
+
+  def create
+    user = User.create!(user_params)
+    session[:user_id] = user.id
+    render json: user, status: :created
+  end
+
+  def show
+    render json: @current_user
+  end
 
     private
 
