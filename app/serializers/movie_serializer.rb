@@ -1,5 +1,6 @@
 class MovieSerializer < ActiveModel::Serializer
   attributes :id, :title, :date_released, :image_url
-  has_many :user
-  has_many :review
+  belongs_to :user
+  has_many :reviews
+  has_many :users, through: :reviews
 end

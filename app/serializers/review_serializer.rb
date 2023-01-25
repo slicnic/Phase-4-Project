@@ -1,4 +1,4 @@
 class ReviewSerializer < ActiveModel::Serializer
-  attributes :id, :rating, :review
-  has_many :users
+  attributes :id, :rating, :content
+  belongs_to :user
 end
