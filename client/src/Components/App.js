@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import Login from "../pages/Login";
 import MovieList from "../pages/MovieList";
 import NewMovie from "../pages/NewMovie";
+import UserList from "../pages/UserList";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -27,9 +28,13 @@ function App() {
           <Route path="/new">
             <NewMovie user={user} />
           </Route>
+          <Route path="/users">
+            <UserList />
+          </Route>
           <Route path="/">
             <MovieList />
           </Route>
+          
         </Switch>
       </main>
     </>

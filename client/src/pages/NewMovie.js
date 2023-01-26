@@ -12,6 +12,7 @@ function NewMovie({ user }) {
     const [errors, setErrors] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
+    console.log(user)
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -25,6 +26,7 @@ function NewMovie({ user }) {
                 title,
                 date_released: dateReleased,
                 image_url: imageUrl,
+                user_id: user.id
             }),
         }).then((r) => {
             setIsLoading(false);
@@ -65,6 +67,14 @@ function NewMovie({ user }) {
                             id="dateReleased"
                             value={dateReleased}
                             onChange={(e) => setDateReleased(e.target.value)}
+                        />
+                    </FormField>
+                    <FormField>
+                        <Label htmlFor="user">User ID</Label>
+                        <Input
+                            id="userID"
+                            value={user.id}
+                            // onChange={(e) => setDateReleased(e.target.value)}
                         />
                     </FormField>
                     <FormField>

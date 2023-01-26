@@ -21,8 +21,11 @@ function NavBar({ user, setUser }) {
                 <Button as={Link} to="/new">
                     New Movie
                 </Button>
+                <Button as={Link} to="/users">
+                    Current Users
+                </Button>
                 <Button variant="outline" onClick={handleLogoutClick}>
-                    Log-TheFuck-out
+                    Log Out
                 </Button>
             </Nav>
         </Wrapper>

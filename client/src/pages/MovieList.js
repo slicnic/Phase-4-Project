@@ -20,15 +20,32 @@ function MovieList() {
         <Wrapper>
             {movies.length > 0 ? (
                 movies.map((movie) => (
+                    // console.log(movie)
                     <Movie key={movie.id}>
                         <Box>
+                            
+                            
+
                             <h2>{movie.title}</h2>
                             <p>
-                                {/* <em>Time to Complete: {recipe.minutes_to_complete} minutes</em>
-                                &nbsp;·&nbsp; */}
-                                <cite>By {movie.user.username}</cite>
+                                <cite>Uploaded By {movie.user.username}</cite>
                             </p>
-                            {/* <ReactMarkdown>{movie.user.name}</ReactMarkdown> */}
+                            <p>
+                                <img src={movie.image_url}></img>
+                            </p>
+                            
+                            <p>Top Reviews</p>
+
+                            {movie.reviews.length > 0 ? (
+                                movie.reviews.map((review) => (
+                                    <p>{review.content}</p>
+                                    
+                                ))
+                            ) : (
+                                <>
+                                        <p> <cite>No Reviews Found</cite></p>
+                                </>
+                            )} 
                         </Box>
                     </Movie>
                 ))
