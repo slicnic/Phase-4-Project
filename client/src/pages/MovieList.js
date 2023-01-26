@@ -3,9 +3,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
+import {useParams} from "react-router"
 
-function MovieList() {
+function MovieList({setCurrentMovieID}) {
     const [movies, setMovies] = useState([]);
+
+function handleUpdate(movie){
+    setCurrentMovieID({title:movie.title, date_release: movie.date_released, image_url:movie.image_url})
+}
+ const {id} = useParams();
 
     useEffect(() => {
         fetch("/movies")
@@ -21,33 +27,35 @@ function MovieList() {
             {movies.length > 0 ? (
                 movies.map((movie) => (
                     // console.log(movie)
-                    <Movie key={movie.id}>
-                        <Box>
-                            
-                            
 
+                    <Movie key={movie.id}>
+                        <Button as={Link} to={`/movies/${movie.id}/edit`}>EdiitMovie</Button>
+                        <Box>
                             <h2>{movie.title}</h2>
+                            <>
+                            </>
                             <p>
                                 <cite>Uploaded By {movie.user.username}</cite>
                             </p>
                             <p>
                                 <img src={movie.image_url}></img>
                             </p>
-                            
+
                             <p>Top Reviews</p>
 
                             {movie.reviews.length > 0 ? (
                                 movie.reviews.map((review) => (
                                     <p>{review.content}</p>
-                                    
+
                                 ))
                             ) : (
                                 <>
                                         <p> <cite>No Reviews Found</cite></p>
                                 </>
-                            )} 
+                            )}
                         </Box>
-                    </Movie>
+                        </Movie>
+
                 ))
             ) : (
                 <>

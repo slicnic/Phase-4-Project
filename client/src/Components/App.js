@@ -5,8 +5,41 @@ import Login from "../pages/Login";
 import MovieList from "../pages/MovieList";
 import NewMovie from "../pages/NewMovie";
 import UserList from "../pages/UserList";
+import EditMovie from "../pages/EditMovie"
 
-function App() {
+function App(){
+  const [updatedMovies, setUpdatedMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [currentMovieID, setCurrentMovieID] = useState({
+    title:"",
+    date_release:"",
+    image_url:""
+  })
+   //const [movie, setMovie] = useState({movieid: 0})
+
+   useEffect(() => {
+        fetch("/movies")
+            .then((r) => r.json())
+            .then(data =>{
+                console.log(data)
+                setMovies(data)
+            });
+    }, []);
+
+
+
+function onUpdateMovie(m){
+    const updatedMovies = movies.map((ogMovie) => {
+      if (ogMovie.id === m.id) {
+        return updatedMovies;
+      } else {
+        return ogMovie;
+      }
+    });
+    setUpdatedMovies(m)
+  }
+
+
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -25,16 +58,18 @@ function App() {
       <NavBar user={user} setUser={setUser} />
       <main>
         <Switch>
-          <Route path="/new">
+          <Route exact path="/new">
             <NewMovie user={user} />
           </Route>
-          <Route path="/users">
+          <Route exact path="/users">
             <UserList />
           </Route>
-          <Route path="/">
-            <MovieList />
+          <Route exact path="/">
+            <MovieList setCurrentMovieID ={ setCurrentMovieID }/>
           </Route>
-          
+          <Route exact path="/movies/:id/edit">
+            <EditMovie user={user} />
+          </Route>
         </Switch>
       </main>
     </>
