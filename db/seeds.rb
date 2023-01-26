@@ -17,12 +17,12 @@ puts "Seeding!"
 puts "Creating User"
 User.create(username:"admin13", bio:"n", image_url:"n", password:"123")
 
-286.times do
+96.times do
     User.create(username: Faker::Name.name, bio: Faker::Internet.email, image_url: "sdfg", password_digest: "password")
 end
 
 puts "Seeding Movies"
-30.times do
+50.times do
     # title = Faker::Movie.unique.title
     Movie.create(title: Faker::Movie.unique.title, date_released: Faker::Date.forward(days: 1), image_url: Faker::LoremFlickr.image(size: "500x300"), user_id: User.all.sample.id)
 end
@@ -31,7 +31,7 @@ puts "Seeding Reviews"
 # puts User.all.sample.id
 # puts Movie.all.sample.id
 
-100.times do
+150.times do
     Review.create(rating: Faker::Number.within(range:1..10), content: Faker::Coffee.notes, user_id: User.all.sample.id, movie_id: Movie.all.sample.id)
 end
 

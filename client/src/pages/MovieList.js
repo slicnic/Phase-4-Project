@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
+import DeleteMovie from "../Components/DeleteMovie";
 
 function MovieList() {
     const [movies, setMovies] = useState([]);
@@ -15,6 +16,19 @@ function MovieList() {
                 setMovies(data)
             });
     }, []);
+
+    function handleDelete(id) {
+        console.log(id)
+        fetch(`/movies/${id}`, {
+            method: "DELETE",
+        }).then((r) => {
+            if (r.ok) {
+                setMovies((amovie) =>
+                    amovie.filter((movie) => movie.id !== id)
+                );
+            }
+        });
+    }
 
     return (
         <Wrapper>
@@ -40,12 +54,18 @@ function MovieList() {
                                 movie.reviews.map((review) => (
                                     <p>{review.content}</p>
                                     
-                                ))
+                                )) 
                             ) : (
                                 <>
                                         <p> <cite>No Reviews Found</cite></p>
                                 </>
-                            )} 
+                            )}  <>
+                                <Button variant="outline" 
+                                    onClick={() => handleDelete(movie.id)}
+                                >
+                                    Delete
+                                </Button>
+                            </>
                         </Box>
                     </Movie>
                 ))
@@ -61,6 +81,8 @@ function MovieList() {
     );
 }
 
+
+
 const Wrapper = styled.section`
   max-width: 800px;
   margin: 40px auto;
@@ -71,3 +93,4 @@ const Movie = styled.article`
 `;
 
 export default MovieList;
+
