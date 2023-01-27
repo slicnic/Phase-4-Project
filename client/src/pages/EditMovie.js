@@ -35,7 +35,7 @@ const EditMovie = ({ onUpdateMovie}) => {
             setTitle(movie.title)
             setDateRelease(movie.date_released)
             setImageUrl(movie.image_url)
-            setReview(movie.reviews)
+
     }
     )
     }, [id])
@@ -108,14 +108,14 @@ const EditMovie = ({ onUpdateMovie}) => {
                             onChange={(e) => setDateRelease(e.target.value)}
                         />
                     </FormField>
-                    <FormField>
+                    {/* <FormField>
                         <label htmlFor="review">Say Some Shit About This Movie</label>
                         <Textarea
                             id="review"
                             value={currentReview}
                             onChange={(e) => setCurrentReview(e.target.value)}
                         />
-                    </FormField>
+                    </FormField> */}
                     {/* <FormField>
                         <label htmlFor="user">User ID</label>
                         <Input
