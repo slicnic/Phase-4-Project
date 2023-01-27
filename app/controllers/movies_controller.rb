@@ -18,8 +18,8 @@ class MoviesController < ApplicationController
 
     def update
         movie = Movie.find(params[:id])
-        movie.update!(production_params)
-        render json: review, status: :accepted
+        movie.update!(movie_params)
+        render json: movie, status: :accepted
     end
 
      def destroy
