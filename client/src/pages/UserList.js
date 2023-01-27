@@ -29,7 +29,7 @@ function UserList() {
                 <>
                     <h2>No Users Found</h2>
                     <Button as={Link} to="/">
-                       Home
+                        Home
                     </Button>
                 </>
             )}

@@ -7,9 +7,10 @@ import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 const EditMovie = ({ onUpdateMovie}) => {
 
     const initialState = {
-      title: "",
-      date_released: "",
-      image_url: ""
+    title: "",
+    date_released: "",
+    image_url: "",
+    review: ""
     };
     const [formData, setFormData] = useState(initialState);
     const [movie, setMovie] = useState({});
@@ -19,27 +20,29 @@ const EditMovie = ({ onUpdateMovie}) => {
     const [title, setTitle] = useState('')
     const [date_release, setDateRelease] = useState('')
     const [image_url, setImageUrl] = useState('')
+    const [review, setReview] = useState([])
+    const [currentReview, setCurrentReview] = useState('')
 
 
       const { id } = useParams();
       const history = useHistory();
 
-     useEffect(() => {
-      fetch(`/movies/${id}`)
-      .then((r) => r.json())
-      .then((movie) => {
-        console.log(movie)
-        setFormData(movie)
-        setTitle(movie.title)
-        setDateRelease(movie.date_released)
-        setImageUrl(movie.image_url)
-      }
-      )
+    useEffect(() => {
+        fetch(`/movies/${id}`)
+        .then((r) => r.json())
+        .then((movie) => {
+            setFormData(movie)
+            setTitle(movie.title)
+            setDateRelease(movie.date_released)
+            setImageUrl(movie.image_url)
+            setReview(movie.reviews)
+    }
+    )
     }, [id])
 
-      const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData(formData => ({... formData, [name]:value}))
+    const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(formData => ({... formData, [name]:value}))
     }
 
 
@@ -48,6 +51,7 @@ const EditMovie = ({ onUpdateMovie}) => {
         e.preventDefault();
         console.log("test")
         setIsLoading(true);
+        console.log(currentReview, review)
         fetch(`/movies/${id}`, {
             method: "PATCH",
             headers: {
@@ -57,21 +61,26 @@ const EditMovie = ({ onUpdateMovie}) => {
                 title,
                 date_released: date_release,
                 image_url: image_url,
+                review: {
+                    content: review
+                },
             }),
         }).then((r) => {
             setIsLoading(false);
             if (r.ok) {
+                //console.log()
                 history.push("/");
             } else {
                 r.json().then((err) => setErrors(err.errors));
             }
         });
     }
+    //console.log(review)
 
     return (
         <Wrapper>
             <WrapperChild>
-                <h2>Create Movie</h2>
+                <h2>Edit Movie</h2>
                 <form onSubmit={handleSubmit}>
                     <FormField>
                         <label htmlFor="title">Title</label>
@@ -97,6 +106,14 @@ const EditMovie = ({ onUpdateMovie}) => {
                             id="dateReleased"
                             value={date_release}
                             onChange={(e) => setDateRelease(e.target.value)}
+                        />
+                    </FormField>
+                    <FormField>
+                        <label htmlFor="review">Say Some Shit About This Movie</label>
+                        <Textarea
+                            id="review"
+                            value={currentReview}
+                            onChange={(e) => setCurrentReview(e.target.value)}
                         />
                     </FormField>
                     {/* <FormField>

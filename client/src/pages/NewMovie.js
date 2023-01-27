@@ -8,6 +8,7 @@ function NewMovie({ user }) {
     const [title, setTitle] = useState("Movie Title");
     const [dateReleased, setDateReleased] = useState("Date");
     const [imageUrl, setImageUrl] = useState("image_url");
+    const [review, setReview] = useState("review")
 
     const [errors, setErrors] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +27,7 @@ function NewMovie({ user }) {
                 title,
                 date_released: dateReleased,
                 image_url: imageUrl,
+                review: review,
                 user_id: user.id
             }),
         }).then((r) => {
@@ -67,6 +69,16 @@ function NewMovie({ user }) {
                             id="dateReleased"
                             value={dateReleased}
                             onChange={(e) => setDateReleased(e.target.value)}
+                        />
+                    </FormField>
+                    <FormField>
+                        <Label htmlFor="review">Leave a Review</Label>
+                        <Textarea
+                            type="string"
+                            id="review"
+                            value={review}
+                            onChange={(e) => setReview(e.target.value)}
+                            //setFormData(formData => ({... formData, [name]:value}))
                         />
                     </FormField>
                     <FormField>

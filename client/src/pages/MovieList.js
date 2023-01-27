@@ -36,6 +36,7 @@ function handleUpdate(movie){
         });
     }
 
+
     return (
         <Wrapper>
             {movies.length > 0 ? (
@@ -70,6 +71,9 @@ function handleUpdate(movie){
                                 </Button>
                             </>
                             <Button as={Link} to={`/movies/${movie.id}/edit`}>Edit Movie</Button>
+                            <Button as={Link} to={`/reivews/${movie.id}/edit`}>Say Some Shit About This Movie</Button>
+
+
                         </Box>
                         </Movie>
 

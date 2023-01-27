@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+    wrap_parameters format: []
+
     def index
         render json: Review.all, status: :ok
     end
@@ -29,8 +31,8 @@ class ReviewsController < ApplicationController
 
     #Review strong params and why they are useful with updates
     def production_params
-        params.permit(:rating, :content)
+        params.permit(:rating, :content, :user_id, :movie_id)
     end
 
 end
-end
+

@@ -24,6 +24,7 @@ class MoviesController < ApplicationController
 
      def destroy
         movie = Movie.find(params[:id])
+        Review.where(movie_id:movie.id).destroy_all
         movie.destroy
         head :no_content
     end

@@ -6,7 +6,9 @@ import MovieList from "../pages/MovieList";
 import NewMovie from "../pages/NewMovie";
 import UserList from "../pages/UserList";
 import EditMovie from "../pages/EditMovie";
+import Review from "../pages/review";
 import DeleteMovie from "../Components/DeleteMovie";
+
 
 function App(){
   const [updatedMovies, setUpdatedMovies] = useState([]);
@@ -71,6 +73,9 @@ function onUpdateMovie(m){
           </Route>
           <Route exact path="/movies/:id/edit">
             <EditMovie user={user} />
+          </Route>
+          <Route exact path="/reivews/:id/edit">
+            <Review user={user}/>
           </Route>
         </Switch>
       </main>
