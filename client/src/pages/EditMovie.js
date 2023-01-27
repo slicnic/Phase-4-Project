@@ -1,20 +1,69 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory , useParams} from "react-router";
 import styled from "styled-components";
 // import ReactMarkdown from "react-markdown";
 import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 
+const EditMovie = ({ onUpdateMovie}) => {
 
-function EditMovie({ user }) {
-    const [title, setTitle] = useState("Movie Title");
-    const [dateReleased, setDateReleased] = useState("Date");
-    const [imageUrl, setImageUrl] = useState("image_url");
-
+    const initialState = {
+      title: "",
+      date_released: "",
+      image_url: ""
+    };
+    const [formData, setFormData] = useState(initialState);
+    const [movie, setMovie] = useState({});
     const [errors, setErrors] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const history = useHistory();
-    console.log(user)
-    const {id} = useParams();
+
+    const [title, setTitle] = useState('')
+    const [date_release, setDateRelease] = useState('')
+    const [image_url, setImageUrl] = useState('')
+
+
+      const { id } = useParams();
+      const history = useHistory();
+
+
+
+// function EditMovie({ user }) {
+//     const [title, setTitle] = useState("Movie Title");
+//     const [dateReleased, setDateReleased] = useState("Date");
+//     const [imageUrl, setImageUrl] = useState("image_url");
+
+//     const [errors, setErrors] = useState([]);
+//     const [isLoading, setIsLoading] = useState(false);
+//     const history = useHistory();
+//     console.log(user)
+//     const {id} = useParams();
+
+     useEffect(() => {
+      fetch(`/movies/${id}`)
+      .then((r) => r.json())
+      .then((movie) => {
+        console.log(movie)
+        setFormData(movie)
+        setTitle(movie.title)
+        setDateRelease(movie.date_released)
+        setImageUrl(movie.image_url)
+      }
+      )
+    }, [id])
+
+    // const handleSubmit = (e) => {
+    //   e.preventDefault();
+    //   const updatedMovie = {
+    //     title: formData.title,
+    //     date_released: formData.date_released,
+    //     image_url: formData.image_url
+    //   }}
+
+      const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData(formData => ({... formData, [name]:value}))
+    }
+
+
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -26,9 +75,8 @@ function EditMovie({ user }) {
             },
             body: JSON.stringify({
                 title,
-                date_released: dateReleased,
-                image_url: imageUrl,
-                user_id: user.id
+                date_released: formData.date_released,
+                image_url: formData.image_url,
             }),
         }).then((r) => {
             setIsLoading(false);
@@ -46,7 +94,7 @@ function EditMovie({ user }) {
                 <h2>Create Movie</h2>
                 <form onSubmit={handleSubmit}>
                     <FormField>
-                        <Label htmlFor="title">Title</Label>
+                        <label htmlFor="title">Title</label>
                         <Input
                             type="text"
                             id="title"
@@ -55,30 +103,30 @@ function EditMovie({ user }) {
                         />
                     </FormField>
                     <FormField>
-                        <Label htmlFor="imageUrl">Image URL</Label>
+                        <label htmlFor="imageUrl">Image URL</label>
                         <Input
                             type="string"
                             id="imageUrl"
-                            value={imageUrl}
+                            value={image_url}
                             onChange={(e) => setImageUrl(e.target.value)}
                         />
                     </FormField>
                     <FormField>
-                        <Label htmlFor="dateReleased">Date Released</Label>
+                        <label htmlFor="dateReleased">Date Released</label>
                         <Textarea
                             id="dateReleased"
-                            value={dateReleased}
-                            onChange={(e) => setDateReleased(e.target.value)}
+                            value={date_release}
+                            onChange={(e) => setDateRelease(e.target.value)}
                         />
                     </FormField>
-                    <FormField>
-                        <Label htmlFor="user">User ID</Label>
+                    {/* <FormField>
+                        <label htmlFor="user">User ID</label>
                         <Input
                             id="userID"
                             value={user.id}
                             // onChange={(e) => setDateReleased(e.target.value)}
                         />
-                    </FormField>
+                    </FormField> */}
                     <FormField>
                         <Button color="primary" type="submit">
                             {isLoading ? "Loading..." : "Submit Movie"}
@@ -91,18 +139,9 @@ function EditMovie({ user }) {
                     </FormField>
                 </form>
             </WrapperChild>
-            {/* <WrapperChild>
-                <h1>{title}</h1>
-                <p>
-                    <em>Time to Complete: {minutesToComplete} minutes</em>
-                    &nbsp;·&nbsp;
-                    <cite>By {user.username}</cite>
-                </p>
-                <ReactMarkdown>{instructions}</ReactMarkdown>
-            </WrapperChild> */}
         </Wrapper>
     );
-}
+                        }
 
 const Wrapper = styled.section`
   max-width: 1000px;

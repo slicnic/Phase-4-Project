@@ -9,11 +9,23 @@ class MoviesController < ApplicationController
 
      def show
         movie = Movie.find(params[:id])
-        render json: user, status: :ok
+        render json: movie, status: :ok
     end
  def create
         movie = Movie.create!(movie_params)
         render json: movie, status: :created
+    end
+
+    def update
+        movie = Movie.find(params[:id])
+        movie.update!(production_params)
+        render json: review, status: :accepted
+    end
+
+     def destroy
+        movie = Movie.find(params[:id])
+        movie.destroy
+        head :no_content
     end
 
     private
