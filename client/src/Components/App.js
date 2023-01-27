@@ -34,7 +34,6 @@ function App() {
           </Route>
           <Route exact path="/">
             <MovieList />
-            <DeleteMovie />
           </Route>
           
         </Switch>

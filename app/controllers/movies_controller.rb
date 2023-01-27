@@ -17,6 +17,12 @@ class MoviesController < ApplicationController
         render json: movie, status: :created
     end
 
+    def update
+        movie = movie_find
+        movie.update!(movie_params)
+        render json: movie, status: :accepted
+    end
+
     def destroy
         movie = movie_find
         Review.where(movie_id:movie.id).destroy_all

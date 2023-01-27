@@ -17,7 +17,7 @@ puts "Seeding!"
 puts "Creating User"
 User.create(username:"admin13", bio:"n", image_url:"n", password:"123")
 
-96.times do
+396.times do
     User.create(username: Faker::Name.name, bio: Faker::Internet.email, image_url: "sdfg", password_digest: "password")
 end
 
